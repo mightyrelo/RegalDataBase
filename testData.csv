@@ -1,4 +1,4 @@
-name;description;retail;trade
-d2;small gate motor;4000;3500
-d5;big gate motor;10000;8000
-vector;swing gate motor;12000;11000
+name;description;retail;trade;userId
+d2;small gate motor;4000;3500;admin
+d5;big gate motor;10000;8000;admin
+vector;swing gate motor;12000;11000;admin

@@ -3,3 +3,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  each product in products 
+    h4 
+      a(href="")=product.name
+      a(href="")=product.description
+      a(href="")=product.selling
+      a(href="")=product.trade
