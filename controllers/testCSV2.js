@@ -19,13 +19,13 @@ const createProduct = (res, data) => {
         description: data.description,
         trade: trade,
         selling: retail,
-        userId: data.userId
+        userId: 'admin'
     },(err, product)=>{
         if(err) {
             console.log(err);
             sendJSONResponse(res, 400, err);
         } else {
-            console.log(product);
+            //console.log(product);
             //sendJSONResponse(res, 201, product);
         }
     });
@@ -34,21 +34,23 @@ const createProduct = (res, data) => {
 
 const csvTester2 = (req, res) => {
     const products = [];
-    fs.createReadStream('./testD.csv')
+    fs.createReadStream('./sample.csv')
       .pipe(csvParser({separator: ';'}))
       .on("data", (data)=> {
-        products.push(data);
-        createProduct(res, data);
+        if((Number(data.trade)-1) != -1){
+            products.push(data);
+            createProduct(res, data);
+        }
+
         })
       .on("end", ()=>{
         console.log(products);
       });
-
-    res.render('index', 
-    { 
-        title: 'Expression',
-        products 
-    });
+      res.render('index', 
+      { 
+          title: 'Expression',
+          products
+      });
 };
 
 module.exports = {
