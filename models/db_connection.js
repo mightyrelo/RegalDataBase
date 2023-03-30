@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 //connection string
 let dbURI = 'mongodb://localhost/aqispa';
+//let dbURI = 'mongodb+srv://accsight:K%40stx8909@cluster0.hvixj0e.mongodb.net/aqisv3';
 
 if(process.env.NODE_ENV === 'production') {
     dbURI = 'mongodb+srv://accsight:K%40stx8909@cluster0.hvixj0e.mongodb.net/aqisv3';

@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     retail: {
         type: Number,
@@ -26,6 +26,12 @@ const productSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         'default': Date.now()
+    },
+    regalCode: {
+        type: String
+    },
+    category: {
+        type: String
     }
 });
 

@@ -12,14 +12,14 @@ const sendJSONResponse = (res, stat, content) => {
 
 const createProduct = (res, data) => {
     const trade = Number(data.trade);
-    const retail = trade*0.3 + trade;
-    console.log(trade);
+    const retail = Number(data.retail);
     Prod.create({
-        name: data.name,
-        description: data.description,
+        name: data.description,
+        description: data.regalCode,
         trade: trade,
         selling: retail,
-        userId: 'admin'
+        userId: 'admin',
+        category: data.category
     },(err, product)=>{
         if(err) {
             console.log(err);
@@ -34,17 +34,21 @@ const createProduct = (res, data) => {
 
 const csvTester2 = (req, res) => {
     const products = [];
-    fs.createReadStream('./sample.csv')
+    let count = 0;
+    fs.createReadStream('./regal_prices.csv')
       .pipe(csvParser({separator: ';'}))
       .on("data", (data)=> {
         if((Number(data.trade)-1) != -1){
-            products.push(data);
-            createProduct(res, data);
+            if(!isNaN(Number(data.trade)) && !isNaN(Number(data.retail))){
+                count++;
+                products.push(data);
+                createProduct(res, data);    
+            }
         }
 
         })
       .on("end", ()=>{
-        console.log(products);
+        console.log(count,' products read from cvs to db.');
       });
       res.render('index', 
       { 
